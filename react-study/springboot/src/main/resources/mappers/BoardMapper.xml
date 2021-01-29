@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.api.board.BoardRepository">
+    <select id="getBoards" resultType="com.study.api.board.BoardVO">
+        SELECT * , (SELECT COUNT(*) FROM BOARDLIST) AS TC FROM BOARDLIST ORDER BY NUM LIMIT #{_startNum}, #{_listNum};
+    </select>
+    <select id="getOneBoard" resultType="com.study.api.board.BoardVO">
+        SELECT * FROM boardlist WHERE num = #{param1};
+    </select>
+    <insert id="insertBoard">
+        INSERT INTO BOARDLIST(SUBJECT, CONTENT) VALUE(#{param1}, #{param2});
+    </insert>
+    <update id="updateBoard">
+        UPDATE BOARDLIST SET SUBJECT = #{param2}, CONTENT = #{param3} WHERE NUM = #{param1};
+    </update>
+    <delete id="deleteBoard">
+        DELETE FROM BOARDLIST WHERE NUM = #{param1};
+    </delete>
+</mapper>
